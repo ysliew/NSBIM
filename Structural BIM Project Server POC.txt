@@ -1,0 +1,56 @@
+node.js Structural BIM server [NSbim]
+=====================================
+
+1. Take in ETABS e2k files (input + output ) and put under 'model/' folder
+2. Set configure.js 
+
+		{ 	
+			"model-source" 			: "etabs", 
+			"model-source-version"	: "8" 
+		}
+
+   Parse and generate BIM visualizable model by issueing 'node parser/etabs/csi/parse.js' command
+
+3. Populate boilder plate code issueing 'node gen-servercode.js' command
+
+4. Execute 'node serve' to host (locally or globally)
+
+5. Access via 'http://localhost:3000/' 
+   to view and interogate information (id=1)
+
+6. Accese via 'http://localhost:3000/compareWith?id=1234' 
+   to higlight differences between current model with another instance [model/bim/structural/diff/1234]
+
+7. Access via 'http://localhost:3000/design?code=ec2&engine=ysliew' 
+   to design using ysliew ec2 design plug-in [model/bim/structural/design/ec2/ysliew]
+
+
+   Pre-requisite
+
+   0. The universal NSBim file format [model/bim/structural/*]
+   		model.json
+   		{ 
+   			"version": "0.1",
+			"remark" : "Initial release",
+			"projectInfo": 	{
+
+							},
+			"author" : 		{
+							"name": "ysliew",
+							"company": ""
+							}
+   		}
+
+   		geometry.json {}
+
+   		loading.json {}
+
+   		design.json {
+
+   		}
+
+   1. ETABS-to-sBimNode (parser/etabs/csi/parse.js) generator [to generate 'model/bim/structural/*' files]
+   
+   2. {code:EC2'} designer (using the generic [model/bim/structural/*] files) and store into [model/bim/structural/design/{code}/{vendor}]
+   
+   3. 
